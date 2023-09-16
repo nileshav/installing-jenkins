@@ -21,6 +21,23 @@ sudo apt-get update
 
 sudo apt-get install jenkins
 ```
+There might be possibility that you will get and below error
+``` bash
+W: GPG error: https://pkg.jenkins.io/debian-stable binary/ Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY <key-value>
+E: The repository 'https://pkg.jenkins.io/debian-stable binary/ Release' is not signed.
+N: Updating from such a repository can't be done securely, and is therefore disabled by default.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+```
+Google’s Linux packages are signed with GNU Privacy Guard (GPG) keys. Google’s packages will automatically configure your package manager to verify product updates with the public signing key, but you may also install it separately if, for instance, you want to verify the integrity of an initial package download. Follow the instructions below to manually configure your package manager to use the keys. hence you need to run the following commands or follow the https://www.google.com/linuxrepositories/ page.
+``` bash
+wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+
+deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+sudo apt-get update
+
+sudo apt-get install jenkins
+```
 Once that’s done, start the Jenkins service with the following command:
 ```bash
 sudo systemctl start jenkins.service
